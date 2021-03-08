@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.portfolio.yoonho.dao.UserMgmtMapper">
+
+	<select id="getUserInfo" parameterType="String" resultType="com.portfolio.yoonho.model.UserInfoVO">
+		SELECT USER_ID as userId, USER_NAME as userName, USER_EMAIL as userEmail, USER_PHONE as userPhone
+		FROM EC_SM_USER_MASTER
+		WHERE UPPER(USER_ID) = UPPER(#{userId})
+		ORDER BY USER_ID
+	</select>
+	
+	<select id="getUserInfoAll" resultType="HashMap">
+		SELECT USER_ID as userId, USER_NAME as userName, USER_EMAIL as userEmail, USER_PHONE as userPhone
+		FROM EC_SM_USER_MASTER
+		WHERE USER_LEVEL = 1
+		ORDER BY USER_ID
+	</select>
+	
+	<insert id="registerUserInfo" parameterType="com.portfolio.yoonho.model.UserInfoVO">
+		INSERT INTO EC_SM_USER_MASTER
+		SELECT #{userId}, ENCRYPT(#{userPw}), #{userName}, #{userEmail}, #{userPhone}, 1, '', null, '', 'ADMIN', SYSDATE FROM DUAL 
+	</insert>
+	
+	<update id="updateUserInfo" parameterType="HashMap">
+		UPDATE EC_SM_USER_MASTER 
+		SET 
+			USER_PW = ENCRYPT(#{userInfo.userPw}),
+			USER_NAME = #{userInfo.userName},
+			USER_EMAIL = #{userInfo.userEmail},
+			USER_PHONE = #{userInfo.userPhone}
+		WHERE UPPER(USER_ID) = UPPER(#{userId})
+	</update>
+	
+	<delete id="deleteUserInfo" parameterType="String">
+		DELETE FROM EC_SM_USER_MASTER
+		WHERE UPPER(USER_ID) = UPPER(#{userId})
+	</delete>
+</mapper>
