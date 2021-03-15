@@ -27,21 +27,30 @@
 	<link rel="stylesheet" href="../resources/plugins/daterangepicker/daterangepicker.css">
 	<!-- summernote -->
 	<link rel="stylesheet" href="../resources/plugins/summernote/summernote-bs4.min.css">
+	
+	
 </head>
 <title>Portfolio</title>
 </head>
 <body>	
-
+	
 
 	<!-- Navbar -->
-	<nav class="main-header navbar navbar-expand navbar-white navbar-light" id="mainNavbar"></nav>
+	<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+		<jsp:include page="/WEB-INF/views/contents/navbar.jsp"></jsp:include>	
+	</nav>
 	<!-- Main Sidebar Container -->
-	<aside class="main-sidebar sidebar-dark-primary elevation-4" id="mainSidebar"></aside>
+	<aside class="main-sidebar sidebar-dark-primary elevation-4">
+		<jsp:include page="/WEB-INF/views/contents/sidebar.jsp"></jsp:include>
+	</aside>
 	<!-- Content Wrapper. Contains page content -->
-	<div class="content-wrapper" id="mainContent"></div>
+	<div class="content-wrapper" id="mainContent">
+		<jsp:include page="/WEB-INF/views/contents/content.jsp"></jsp:include>
+	</div>
 	<!-- Footer -->
-	<footer class="main-footer" id="mainFooter"></footer>
-
+	<footer class="main-footer" id="mainFooter">
+		<jsp:include page="/WEB-INF/views/contents/footer.jsp"></jsp:include>
+	</footer>
 
 
 
@@ -80,12 +89,16 @@
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 	<script src="../resources/dist/js/pages/dashboard.js"></script>
 	
-	<script type="text/javascript">
+	
+</body>
+<script type="text/javascript">
 		var main = {
 			init: function(){
+				/*
 				$.ajax({
 					url:'navbar',
 					type:'get',
+					dataType: 'html',
 					success:function(data){
 						$('#mainNavbar').html(data)
 					},
@@ -93,46 +106,12 @@
 						console.log(data);
 					}
 				});
-
-				$.ajax({
-					url:'sidebar',
-					type:'get',
-					success:function(data){
-						$('#mainSidebar').html(data)
-					},
-					error:function(data){
-						console.log(data);
-					}
-				});
-
-				$.ajax({
-					url:'content',
-					type:'get',
-					success:function(data){
-						$('#mainContent').html(data)
-					},
-					error:function(data){
-						console.log(data);
-					}
-				});
-
-				$.ajax({
-					url:'footer',
-					type:'get',
-					success:function(data){
-						$('#mainFooter').html(data)
-					},
-					error:function(data){
-						console.log(data);
-					}
-				});
-			},
+				*/
+			}
 		}
 
-		
-		/* $(document).ready(function(){
+		$(document).ready(function(){
 			main.init();
-		}); */
+		});
 	</script>
-</body>
 </html>
