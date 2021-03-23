@@ -28,14 +28,7 @@ public class Main {
 	@RequestMapping("/content")
 	public String content() throws Exception {
 		return "/contents/content";
-	}
-	
-	
-	
-	@RequestMapping("/dashboard")
-	public String dashboard() throws Exception {
-		return "/index";
-	}
+	}	
 	
 	@RequestMapping("/apiDocs")
 	public String apiDocs() throws Exception {
