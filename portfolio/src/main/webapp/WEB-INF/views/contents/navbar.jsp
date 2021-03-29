@@ -13,6 +13,6 @@
 	</li>
 	
 	<li class="nav-item" style="margin-right:10px">
-		<button type="submit" class="btn btn-primary btn-block" onclick="location.href='/login'">Sign In</button>
+		<button type="submit" class="btn btn-primary btn-block" onclick="location.href='/loginMain'">Sign In</button>
 	</li>
 </ul>

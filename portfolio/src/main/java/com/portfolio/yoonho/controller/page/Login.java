@@ -14,24 +14,36 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.portfolio.yoonho.model.UserInfoVO;
 
 @Controller
-@RequestMapping(value = "/login")
 public class Login {
 	
 	private static final Logger log = LoggerFactory.getLogger(Login.class);
 	private static final String loginPath = "login/";
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/loginMain", method = RequestMethod.GET)
+	public String loginMain() throws Exception{
+		return loginPath + "loginMain";
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() throws Exception{
 		return loginPath + "login";
 	}
 	
-	@RequestMapping(value = "/check", method = RequestMethod.POST)
-	public String loginProcess(UserInfoVO userInfo) throws Exception{
-		
-		log.info("ID : " + userInfo.getUserId() + ", PW : " + userInfo.getUserPw());
-		
-		
-		
-		return "redirect:../";
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String register() throws Exception{
+		return loginPath + "register";
 	}
+	
+	@RequestMapping(value = "/forgotPW", method = RequestMethod.GET)
+	public String forgotPW() throws Exception{
+		return loginPath + "forgotPW";
+	}
+	
+//	@RequestMapping(value = "/check", method = RequestMethod.POST)
+//	public String loginProcess(UserInfoVO userInfo) throws Exception{
+//		
+//		log.info("ID : " + userInfo.getUserId() + ", PW : " + userInfo.getUserPw());
+//		
+//		return "redirect:../";
+//	}
 }
