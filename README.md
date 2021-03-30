@@ -7,7 +7,7 @@ _New projects will continue to be updated in the [Table of Contents](#Table-of-C
 ## Table of Contents
 
 * [Swagger2 (w/ Restful API)](#Swagger2)
-* [Login (w/ NoSQL) __(진행중)__](#Login (진행중))
+* [Login (w/ NoSQL) __(진행중)__](#Login)
 * [ORM(JPA, JOOQ)&Mapper(Mybatis) 연동   _(예정)_](#)
 * [Email 송수신 _(예정)_](#)
 * [YTM Crawling&Curve산출 (w/ Selenium) _(예정)_](#)
@@ -34,7 +34,7 @@ _New projects will continue to be updated in the [Table of Contents](#Table-of-C
  * Swagger2를 활용하여 API 문서 자동화 구현 
  
  
- ## Login (진행중)
+ ## Login
  
 1. 개발환경
  * FE : HTML5, javascript
