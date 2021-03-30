@@ -27,7 +27,7 @@ public class PortfolioApplication {
     public SqlSessionFactory sqlSessionFactory(DataSource ds) throws Exception{
         SqlSessionFactoryBean sf = new SqlSessionFactoryBean();
         sf.setDataSource(ds);
-        sf.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:/mappers/*.xml"));
+        sf.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:/mappers/**.xml"));
         
         return sf.getObject();
     }

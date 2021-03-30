@@ -6,18 +6,23 @@ import javax.tools.DocumentationTool.Location;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.portfolio.yoonho.model.UserInfoVO;
+import com.portfolio.yoonho.service.LoginService;
 
 @Controller
 public class Login {
 	
 	private static final Logger log = LoggerFactory.getLogger(Login.class);
 	private static final String loginPath = "login/";
+	
+	@Autowired
+	LoginService loginService;
 	
 	@RequestMapping(value = "/loginMain", method = RequestMethod.GET)
 	public String loginMain() throws Exception{
@@ -39,11 +44,18 @@ public class Login {
 		return loginPath + "forgotPW";
 	}
 	
-//	@RequestMapping(value = "/check", method = RequestMethod.POST)
-//	public String loginProcess(UserInfoVO userInfo) throws Exception{
-//		
-//		log.info("ID : " + userInfo.getUserId() + ", PW : " + userInfo.getUserPw());
-//		
-//		return "redirect:../";
-//	}
+	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
+	public @ResponseBody String loginProcess(UserInfoVO userInfo) throws Exception{
+		
+		log.info("ID : " + userInfo.getUserId() + ", PW : " + userInfo.getUserPw());
+		
+		String result = "";
+		if(loginService.loginProcess(userInfo)) {
+			result = "SUCCESS";
+		}else {
+			result = "FAIL";
+		}
+		
+		return result;
+	}
 }

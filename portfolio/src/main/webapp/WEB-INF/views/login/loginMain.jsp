@@ -41,18 +41,22 @@
 				}
 				console.log(param);
 
-				/* $.ajax({
-					url: 'login/check',
+				$.ajax({
+					url: 'loginProcess',
 					type: 'post',
 					data: param,
 					success: function(data){
 						console.log(data);
-						location.href='/';
+						if(data == 'SUCCESS'){
+							location.href = '/';
+						}else{
+							alert('FAIL');
+						}
 					},
 					error: function(data){
 						console.log(data);
 					}
-				}); */
+				});
 			},
 		};
 	</script>
