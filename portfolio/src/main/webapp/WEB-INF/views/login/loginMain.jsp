@@ -9,11 +9,11 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="/resources/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
   <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="/resources/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="/resources/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition login-page">
 
@@ -58,14 +58,21 @@
 					}
 				});
 			},
+			onKeyUpEvt_Login: function(action){
+				if(window.event.keyCode == 13){
+					if(action == 'login'){
+						login.clickEvt_SignIn();		
+					}	
+				}
+			}
 		};
 	</script>
 
 <!-- jQuery -->
-<script src="/resources/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="/resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="/resources/dist/js/adminlte.min.js"></script>
+<script src="/dist/js/adminlte.min.js"></script>
 </body>
 </html>

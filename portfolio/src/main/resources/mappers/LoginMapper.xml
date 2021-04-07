@@ -4,9 +4,19 @@
 
 <mapper namespace="com.portfolio.yoonho.dao.LoginMapper">
 
-	<select id="loginProcess" parameterType="com.portfolio.yoonho.model.UserInfoVO" resultType="String">
+	<!-- <select id="loginProcess" parameterType="com.portfolio.yoonho.model.UserInfoVO" resultType="String">
 		SELECT '1' FROM SM_USER_MASTER
 		WHERE LOWER(USER_ID) = LOWER(#{userId}) AND 1 = compare_encrypt(USER_PW, #{userPw})
+	</select> -->
+	
+	<sql id="tableName">
+		FROM EC_SM_USER_MASTER_T
+	</sql>
+	
+	<select id="loginProcess" parameterType="com.portfolio.yoonho.model.UserInfoVO" resultType="String">
+		SELECT COUNT(USER_ID) 
+		<include refid="tableName" />
+		WHERE LOWER(USER_ID) = LOWER(#{userId}) AND NEW_PASSWD = ENCRYPT(#{userPw})
 	</select>
 	
 </mapper>

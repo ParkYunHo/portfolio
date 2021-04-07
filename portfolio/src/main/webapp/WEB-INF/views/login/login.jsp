@@ -1,4 +1,4 @@
-<div class="login-box"> 
+<div class="login-box" onkeyup="login.onKeyUpEvt_Login('login')"> 
   <div class="card card-outline card-primary">
   	<!-- Header -->
     <div class="card-header text-center">

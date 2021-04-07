@@ -2,6 +2,7 @@ package com.portfolio.yoonho.controller.page;
 
 import java.lang.ProcessBuilder.Redirect;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.tools.DocumentationTool.Location;
 
 import org.slf4j.Logger;
@@ -45,10 +46,8 @@ public class Login {
 	}
 	
 	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
-	public @ResponseBody String loginProcess(UserInfoVO userInfo) throws Exception{
-		
-		log.info("ID : " + userInfo.getUserId() + ", PW : " + userInfo.getUserPw());
-		
+	public @ResponseBody String loginProcess(HttpServletRequest req, UserInfoVO userInfo) throws Exception{
+
 		String result = "";
 		if(loginService.loginProcess(userInfo)) {
 			result = "SUCCESS";
