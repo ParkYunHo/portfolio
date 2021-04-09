@@ -22,7 +22,7 @@
         </div>
       </form>
       <p class="mt-3 mb-1">
-        <a href="#" onclick="login.clivkEvt_MoveToPage('login')">Login</a>
+        <a href="#" onclick="login.clivkEvt_MoveToPage('loginPage')">Login</a>
       </p>
     </div>
     <!-- /.login-card-body -->

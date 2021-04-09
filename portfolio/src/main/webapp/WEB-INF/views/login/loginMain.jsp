@@ -42,7 +42,7 @@
 				console.log(param);
 
 				$.ajax({
-					url: 'loginProcess',
+					url: '/login/loginProcess',
 					type: 'post',
 					data: param,
 					success: function(data){

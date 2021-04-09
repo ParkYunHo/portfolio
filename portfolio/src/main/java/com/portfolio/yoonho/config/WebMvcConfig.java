@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.portfolio.yoonho.controller.interceptor.SessionInterceptor;
+import com.portfolio.yoonho.interceptor.SessionInterceptor;
 
 /*
  *  @EnableWebMvc를 사용하면 ViewResolver값이 자동으로 등록
@@ -21,5 +21,4 @@ public class WebMvcConfig implements WebMvcConfigurer{
 		// TODO Auto-generated method stub
 		registry.addInterceptor(new SessionInterceptor());
 	}
-	
 }
