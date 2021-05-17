@@ -5,7 +5,7 @@
 <mapper namespace="com.portfolio.yoonho.dao.UserMgmtMapper">
 
 	<select id="getUserInfo" parameterType="String" resultType="com.portfolio.yoonho.model.UserInfoVO">
-		SELECT USER_ID as userId, USER_NAME as userName, USER_EMAIL as userEmail, USER_PHONE as userPhone
+		SELECT USER_ID as userId, USER_NAME as userName, EMAIL_ADDR as userEmail, PHONE_NO as userPhone
 		FROM EC_SM_USER_MASTER
 		WHERE UPPER(USER_ID) = UPPER(#{userId})
 		ORDER BY USER_ID

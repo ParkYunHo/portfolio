@@ -8,6 +8,11 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.Data;
 
+/*
+ * @Data
+ *  - @Getter, @Setter 등의 설정을 통합적으로 설정하는 어노테이션
+ * 
+ */
 @Data
 @Alias("userInfo")
 public class UserInfoVO {

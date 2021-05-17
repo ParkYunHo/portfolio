@@ -45,6 +45,20 @@ public class SwaggerConfig {
 				.apiInfo(apiInfo(title, version));
 	}
 	
+	@Bean
+	public Docket userMgmtAPI_jpa() {
+		String version = "jpa";
+		String title = "사용자 관리 API (w/ JPA)";
+		
+		return new Docket(DocumentationType.SWAGGER_2)
+				.useDefaultResponseMessages(false)
+				.groupName(version)
+				.select()
+				.apis(RequestHandlerSelectors.basePackage("com.portfolio.yoonho.controller.api.userMgmt.jap"))
+				.paths(PathSelectors.ant("/api/jpa/**"))
+				.build()
+				.apiInfo(apiInfo(title, version));
+	}
 	
 	private ApiInfo apiInfo(String title, String version) {
 		return new ApiInfoBuilder()

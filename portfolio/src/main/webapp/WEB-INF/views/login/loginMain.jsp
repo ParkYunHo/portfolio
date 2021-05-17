@@ -50,7 +50,7 @@
 						if(data == 'SUCCESS'){
 							location.href = '/';
 						}else{
-							alert('FAIL');
+							alert('Login FAIL');
 						}
 					},
 					error: function(data){
@@ -58,10 +58,37 @@
 					}
 				});
 			},
+			clickEvt_Forgot: function(){
+				var param = {
+						'userEmail': $('#forgot_inputEmail')[0].value
+					}
+					console.log(param);
+
+					$.ajax({
+						url: '/login/forgotProcess',
+						type: 'post',
+						data: param,
+						success: function(data){
+							console.log(data);
+							if(data == 'SUCCESS'){
+								alert('이메일로 임시패스워드를 전송하였습니다.');
+								login.clivkEvt_MoveToPage('loginPage');
+							}else{
+								alert('Send Email FAIL');
+								login.clivkEvt_MoveToPage('forgotPage');
+							}
+						},
+						error: function(data){
+							console.log(data);
+						}
+					});
+			},
 			onKeyUpEvt_Login: function(action){
 				if(window.event.keyCode == 13){
 					if(action == 'login'){
 						login.clickEvt_SignIn();		
+					}else if(action == 'forgot'){
+						login.clickEvt_Forgot();
 					}	
 				}
 			}

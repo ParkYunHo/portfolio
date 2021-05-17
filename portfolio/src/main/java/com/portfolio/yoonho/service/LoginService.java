@@ -1,5 +1,7 @@
 package com.portfolio.yoonho.service;
 
+import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,17 +13,22 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.portfolio.yoonho.common.Info;
+import com.portfolio.yoonho.common.MailHandler;
 import com.portfolio.yoonho.controller.page.Login;
 import com.portfolio.yoonho.dao.LoginMapper;
 import com.portfolio.yoonho.dao.UserMgmtMapper;
 import com.portfolio.yoonho.model.UserInfoVO;
 
+
 @Service
 public class LoginService {
 	
+	/* 변수선언부 */
 	private static final Logger log = LoggerFactory.getLogger(Login.class);
 	
 	@Autowired
@@ -30,10 +37,14 @@ public class LoginService {
 	UserMgmtMapper userMgmtMapper;
 	@Autowired
 	RedisTemplate<String, Object> rt;
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	private HashOperations<String, String, Object> hop = null;
 	private String userId = "";
 	
+	
+	/* Func : Login프로세스 */
 	public boolean loginProcess(UserInfoVO userInfo) throws Exception {
 		String result = "";
 		try {
@@ -45,6 +56,33 @@ public class LoginService {
 		return result.equals("1") ? true : false;
 	}
 	
+	/* Func : 패스워드 초기화 프로세스 */
+	public boolean forgotProcess(UserInfoVO userInfo) throws Exception {
+		try {
+			String tmpPw = UUID.randomUUID().toString().replace("-", "");
+			
+			MailHandler handler = new MailHandler(mailSender);
+			handler.setTo(userInfo.getUserEmail());
+			handler.setFrom(userInfo.getUserEmail());
+			handler.setSubject("[Portfolio] 임시비밀번호 보내드립니다.");
+			
+			String htmlForm = 	"	<div align='center' style='border:1px solid black; font-family:verdana'>"
+								+ "		<h3 style='color: blue;'>임시비밀번호</h3><br>"
+								+ "		<p>패스워드 : " + tmpPw + "</p>"
+								+ "	</div>";
+			
+			handler.setText(htmlForm, true);
+			
+			handler.send();
+		}catch(Exception e) {
+			log.error("[forgotProcess] " + e.getMessage());
+			return false;
+		}
+		
+		return true;
+	}
+	
+	/* Func : Client FingerPrint Session화 */
 	public void setClientInfo(HttpServletRequest req, UserInfoVO userInfo) {
 		
 		userId = userInfo.getUserId();
@@ -81,7 +119,7 @@ public class LoginService {
 		log.info("=====================================");
 	}
 	
-	/* UserAgent 분석 함수 */
+	/* Func : UserAgent 분석 함수 */
 	private void getUserAgentInfo(String userAgent) {
 		// 브라우저 체크
 		String browser = "";

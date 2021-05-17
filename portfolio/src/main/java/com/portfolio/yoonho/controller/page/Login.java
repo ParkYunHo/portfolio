@@ -65,4 +65,17 @@ public class Login {
 		
 		return result;
 	}
+	
+	@RequestMapping(value = "/forgotProcess", method = RequestMethod.POST)
+	public @ResponseBody String forgotProcess(HttpServletResponse res, HttpServletRequest req, UserInfoVO userInfo) throws Exception{
+
+		String result = "";
+		if(loginService.forgotProcess(userInfo)) {
+			result = Info.RESPONE_RESULT_SUCCESS;
+		}else {
+			result = Info.RESPONE_RESULT_FAIL;
+		}
+		
+		return result;
+	}
 }
