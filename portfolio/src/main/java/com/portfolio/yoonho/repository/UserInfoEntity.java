@@ -3,8 +3,11 @@ package com.portfolio.yoonho.repository;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import lombok.Data;
 
@@ -19,10 +22,9 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="EC_SM_USER_MASTER@TEST")
+@Table(name="EC_SM_USER_MASTER")
 public class UserInfoEntity {
 	@Id
-	@GeneratedValue
 	@Column(name="USER_ID")
 	private String userId;
 	
@@ -32,9 +34,6 @@ public class UserInfoEntity {
 	@Column(name="EMAIL_ADDR")
 	private String userEmail;
 	
-//	@Column(name="DEPT_CODE")
-//	private String deptCode;
-//	
-//	@Column(name="JOB_GRADE_CODE")
-//	private String jobGradeCode;
+	@Column(name="NEW_PASSWD")
+	private String userPw;
 }

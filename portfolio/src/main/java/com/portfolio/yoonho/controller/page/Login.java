@@ -54,9 +54,13 @@ public class Login {
 
 		String result = "";
 		if(loginService.loginProcess(userInfo)) {
-			
-			// 로그인 성공시 Client정보 저장
-			loginService.setClientInfo(req, userInfo);
+			try {
+				// 로그인 성공시 Client정보 저장
+				loginService.setClientInfo(req, userInfo);				
+			}catch(Exception e) {
+				log.error(e.getMessage());
+			}
+
 			
 			result = Info.RESPONE_RESULT_SUCCESS;
 		}else {

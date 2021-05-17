@@ -1,7 +1,16 @@
 package com.portfolio.yoonho.controller.api.userMgmt.jpa;
 
+import java.sql.CallableStatement;
 import java.util.List;
 import java.util.Optional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.ParameterMode;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.StoredProcedureQuery;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +35,8 @@ public class UserMgmtJPA {
 	
 	@Autowired
 	UserInfoEntityRepository userRepo;
+	@PersistenceContext
+	EntityManager em;
 	
 	@ApiOperation(value = "getUserInfo", notes = "특정 사용자 조회")
 	@RequestMapping(method = RequestMethod.GET, value="/{id}")
@@ -33,6 +44,9 @@ public class UserMgmtJPA {
 		UserInfoEntity ue = null;
 		try {
 			ue = userRepo.findById(id).get();
+			
+			// 불필요한 정보 제외처리
+			ue.setUserPw("");
 		}catch(Exception e) {
 			log.error(e.getMessage());
 		}
@@ -44,13 +58,31 @@ public class UserMgmtJPA {
 	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody void registerUserInfo(@ApiParam(value="등록할 사용자 정보", required = true) UserInfoEntity userInfo) throws Exception{
 		try {
-			log.info("<JPA UserInfo>");
-			log.info(userInfo.getUserId());
-			log.info(userInfo.getUserName());
-			log.info(userInfo.getUserEmail());
-//			log.info(userInfo.getDeptCode());
-//			log.info(userInfo.getJobGradeCode());
-			userRepo.save(userInfo);
+			if(userRepo.existsById(userInfo.getUserId()) || userInfo.getUserId().equals("") || userInfo.getUserId() == null) {
+				log.error("사용자 등록을 위한 ID정보 에러");
+			}else {
+				String res = em.createNativeQuery("SELECT ENCRYPT(:param) FROM DUAL")
+						.setParameter("param", userInfo.getUserPw())
+						.getSingleResult().toString();
+						
+				userInfo.setUserPw(res.toString());
+				
+				userRepo.save(userInfo);	
+			}
+		}catch(Exception e) {
+			log.error(e.getMessage());
+		}
+	}
+	
+	@ApiOperation(value = "updateUserInfo", notes = "사용자 정보 변경")
+	@RequestMapping(method = RequestMethod.PUT)
+	public @ResponseBody void updateUserInfo(@ApiParam(value="변경할 사용자 정보", required = true) UserInfoEntity userInfo) throws Exception{
+		try {
+			if(userInfo.getUserId().equals("") || userInfo.getUserId() == null) {
+				log.error("사용자 정보를 업데이트를 위한 ID정보 누락");
+			}else {
+				userRepo.save(userInfo);	
+			}
 		}catch(Exception e) {
 			log.error(e.getMessage());
 		}

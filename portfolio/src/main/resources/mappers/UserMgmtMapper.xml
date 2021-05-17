@@ -4,20 +4,15 @@
 
 <mapper namespace="com.portfolio.yoonho.dao.UserMgmtMapper">
 
-<<<<<<< HEAD
 	<sql id="selectCol">
 		SELECT USER_ID as userId, USER_NAME as userName, EMAIL_ADDR as userEmail, PHONE_NO as userPhone
 	</sql>
 
 	<sql id="tableName_dev">
-		FROM EC_SM_USER_MASTER_T
+		EC_SM_USER_MASTER_T
 	</sql>
 	<sql id="tableName">
-=======
-	<select id="getUserInfo" parameterType="String" resultType="com.portfolio.yoonho.model.UserInfoVO">
-		SELECT USER_ID as userId, USER_NAME as userName, EMAIL_ADDR as userEmail, PHONE_NO as userPhone
->>>>>>> branch 'main' of https://github.com/ParkYunHo/portfolio.git
-		FROM EC_SM_USER_MASTER
+		EC_SM_USER_MASTER
 	</sql>
 
 	<select id="getUserInfo" parameterType="String" resultType="com.portfolio.yoonho.model.UserInfoVO">
@@ -53,7 +48,7 @@
 	<update id="updateUserInfo" parameterType="HashMap">
 		UPDATE <include refid="tableName" /> 
 		SET 
-			USER_PW = ENCRYPT(#{userInfo.userPw}),
+			NEW_PASSWD = ENCRYPT(#{userInfo.userPw}),
 			USER_NAME = #{userInfo.userName},
 			EMAIL_ADDR = #{userInfo.userEmail},
 			PHONE_NO = #{userInfo.userPhone}
