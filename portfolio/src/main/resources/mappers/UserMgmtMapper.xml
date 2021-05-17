@@ -4,37 +4,59 @@
 
 <mapper namespace="com.portfolio.yoonho.dao.UserMgmtMapper">
 
-	<select id="getUserInfo" parameterType="String" resultType="com.portfolio.yoonho.model.UserInfoVO">
-		SELECT USER_ID as userId, USER_NAME as userName, USER_EMAIL as userEmail, USER_PHONE as userPhone
+	<sql id="selectCol">
+		SELECT USER_ID as userId, USER_NAME as userName, EMAIL_ADDR as userEmail, PHONE_NO as userPhone
+	</sql>
+
+	<sql id="tableName_dev">
+		FROM EC_SM_USER_MASTER_T
+	</sql>
+	<sql id="tableName">
 		FROM EC_SM_USER_MASTER
-		WHERE UPPER(USER_ID) = UPPER(#{userId})
+	</sql>
+
+	<select id="getUserInfo" parameterType="String" resultType="com.portfolio.yoonho.model.UserInfoVO">
+		<include refid="selectCol" />
+		FROM <include refid="tableName" />
+		WHERE 1=1
+		AND UPPER(USER_ID) = UPPER(#{userId})
 		ORDER BY USER_ID
 	</select>
 	
 	<select id="getUserInfoAll" resultType="HashMap">
-		SELECT USER_ID as userId, USER_NAME as userName, USER_EMAIL as userEmail, USER_PHONE as userPhone
-		FROM EC_SM_USER_MASTER
-		WHERE USER_LEVEL = 1
+		<include refid="selectCol" />
+		FROM <include refid="tableName" />
 		ORDER BY USER_ID
 	</select>
 	
 	<insert id="registerUserInfo" parameterType="com.portfolio.yoonho.model.UserInfoVO">
-		INSERT INTO EC_SM_USER_MASTER
-		SELECT #{userId}, ENCRYPT(#{userPw}), #{userName}, #{userEmail}, #{userPhone}, 1, '', null, '', 'ADMIN', SYSDATE FROM DUAL 
+		INSERT INTO <include refid="tableName" />
+		SELECT 	#{userId},
+				#{userName},
+				2,
+				#{userPhone},
+				#{userEmail},
+				ENCRYPT(#{userPw}), 
+				null,
+				'1',
+				null,
+				'ADMIN',
+				SYSDATE
+		FROM DUAL 
 	</insert>
 	
 	<update id="updateUserInfo" parameterType="HashMap">
-		UPDATE EC_SM_USER_MASTER 
+		UPDATE <include refid="tableName" /> 
 		SET 
 			USER_PW = ENCRYPT(#{userInfo.userPw}),
 			USER_NAME = #{userInfo.userName},
-			USER_EMAIL = #{userInfo.userEmail},
-			USER_PHONE = #{userInfo.userPhone}
+			EMAIL_ADDR = #{userInfo.userEmail},
+			PHONE_NO = #{userInfo.userPhone}
 		WHERE UPPER(USER_ID) = UPPER(#{userId})
 	</update>
 	
 	<delete id="deleteUserInfo" parameterType="String">
-		DELETE FROM EC_SM_USER_MASTER
+		DELETE FROM <include refid="tableName" />
 		WHERE UPPER(USER_ID) = UPPER(#{userId})
 	</delete>
 </mapper>

@@ -9,8 +9,11 @@
 		WHERE LOWER(USER_ID) = LOWER(#{userId}) AND 1 = compare_encrypt(USER_PW, #{userPw})
 	</select> -->
 	
-	<sql id="tableName">
+	<sql id="tableName_dev">
 		FROM EC_SM_USER_MASTER_T
+	</sql>
+	<sql id="tableName">
+		FROM EC_SM_USER_MASTER
 	</sql>
 	
 	<select id="loginProcess" parameterType="com.portfolio.yoonho.model.UserInfoVO" resultType="String">

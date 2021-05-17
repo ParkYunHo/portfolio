@@ -1,4 +1,4 @@
-package com.portfolio.yoonho.controller.interceptor;
+package com.portfolio.yoonho.interceptor;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -48,7 +48,7 @@ public class SessionInterceptor implements HandlerInterceptor {
 		
 		log.info("==========================================================");
 		
-		return HandlerInterceptor.super.preHandle(request, response, handler);
+		return true;
 	}
 
 	/* 컨트롤러가 실행된 후 수행되는 함수 */
