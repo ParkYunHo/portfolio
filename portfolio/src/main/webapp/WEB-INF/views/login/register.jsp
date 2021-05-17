@@ -47,7 +47,7 @@
         </div>
       </form>
 
-      <a href="#" class="text-center" onclick="login.clivkEvt_MoveToPage('login')">I already have a membership</a>
+      <a href="#" class="text-center" onclick="login.clivkEvt_MoveToPage('loginPage')">I already have a membership</a>
     </div>
     <!-- /.form-box -->
   </div><!-- /.card -->

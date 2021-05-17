@@ -4,6 +4,7 @@
 
 <mapper namespace="com.portfolio.yoonho.dao.UserMgmtMapper">
 
+<<<<<<< HEAD
 	<sql id="selectCol">
 		SELECT USER_ID as userId, USER_NAME as userName, EMAIL_ADDR as userEmail, PHONE_NO as userPhone
 	</sql>
@@ -12,6 +13,10 @@
 		FROM EC_SM_USER_MASTER_T
 	</sql>
 	<sql id="tableName">
+=======
+	<select id="getUserInfo" parameterType="String" resultType="com.portfolio.yoonho.model.UserInfoVO">
+		SELECT USER_ID as userId, USER_NAME as userName, EMAIL_ADDR as userEmail, PHONE_NO as userPhone
+>>>>>>> branch 'main' of https://github.com/ParkYunHo/portfolio.git
 		FROM EC_SM_USER_MASTER
 	</sql>
 

@@ -3,6 +3,8 @@ package com.portfolio.yoonho.controller.page;
 import java.lang.ProcessBuilder.Redirect;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.tools.DocumentationTool.Location;
 
 import org.slf4j.Logger;
@@ -13,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.portfolio.yoonho.common.Info;
 import com.portfolio.yoonho.model.UserInfoVO;
 import com.portfolio.yoonho.service.LoginService;
 
 @Controller
+@RequestMapping("/login")
 public class Login {
 	
 	private static final Logger log = LoggerFactory.getLogger(Login.class);
@@ -25,34 +29,51 @@ public class Login {
 	@Autowired
 	LoginService loginService;
 	
-	@RequestMapping(value = "/loginMain", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String loginMain() throws Exception{
 		return loginPath + "loginMain";
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
 	public String login() throws Exception{
 		return loginPath + "login";
 	}
 	
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	@RequestMapping(value = "/registerPage", method = RequestMethod.GET)
 	public String register() throws Exception{
 		return loginPath + "register";
 	}
 	
-	@RequestMapping(value = "/forgotPW", method = RequestMethod.GET)
+	@RequestMapping(value = "/forgotPWPage", method = RequestMethod.GET)
 	public String forgotPW() throws Exception{
 		return loginPath + "forgotPW";
 	}
 	
 	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
-	public @ResponseBody String loginProcess(HttpServletRequest req, UserInfoVO userInfo) throws Exception{
+	public @ResponseBody String loginProcess(HttpServletResponse res, HttpServletRequest req, UserInfoVO userInfo) throws Exception{
 
 		String result = "";
 		if(loginService.loginProcess(userInfo)) {
-			result = "SUCCESS";
+			
+			// 로그인 성공시 Client정보 저장
+			loginService.setClientInfo(req, userInfo);
+			
+			result = Info.RESPONE_RESULT_SUCCESS;
 		}else {
-			result = "FAIL";
+			result = Info.RESPONE_RESULT_FAIL;
+		}
+		
+		return result;
+	}
+	
+	@RequestMapping(value = "/forgotProcess", method = RequestMethod.POST)
+	public @ResponseBody String forgotProcess(HttpServletResponse res, HttpServletRequest req, UserInfoVO userInfo) throws Exception{
+
+		String result = "";
+		if(loginService.forgotProcess(userInfo)) {
+			result = Info.RESPONE_RESULT_SUCCESS;
+		}else {
+			result = Info.RESPONE_RESULT_FAIL;
 		}
 		
 		return result;

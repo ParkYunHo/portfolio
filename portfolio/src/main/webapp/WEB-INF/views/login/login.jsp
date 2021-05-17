@@ -31,8 +31,8 @@
         </div>
         
         <div class="row">
-        	<p class="mb-1 col-6"><a href="#" onclick="login.clivkEvt_MoveToPage('forgotPW')">Forgot Password</a></p>
-        	<p class="mb-0 col-6" style="text-align: right"><a href="#" class="text-center" onclick="login.clivkEvt_MoveToPage('register')">Register</a></p>
+        	<p class="mb-1 col-6"><a href="#" onclick="login.clivkEvt_MoveToPage('forgotPWPage')">Forgot Password</a></p>
+        	<p class="mb-0 col-6" style="text-align: right"><a href="#" class="text-center" onclick="login.clivkEvt_MoveToPage('registerPage')">Register</a></p>
         </div>
     </div>
   </div>
